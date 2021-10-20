@@ -1,1 +1,41 @@
-<p>load works!</p>
+<div style="text-align: center;">
+  <h1>Carga del almacén de datos</h1>
+
+  <div class="flex">
+    <div class="responsiveTxt">
+      Seleccione fuente:
+    </div>
+
+    <mat-list class="responsiveTxt">
+      <mat-list-item>
+        Seleccionar todas
+      </mat-list-item>
+
+      <mat-list-item>
+        Catalunya
+      </mat-list-item>
+
+      <mat-list-item>
+        Comunitat Valenciana
+      </mat-list-item>
+
+      <mat-list-item>
+        Euskadi
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <div class="flex" style="gap: 30px;">
+    <button>Cancelar</button>
+    <button>Cargar</button>
+  </div>
+
+  <div class="responsiveTxt">
+    Resultados de la carga:
+  </div>
+
+  <div>
+    <textarea ng-model="string" ng-name="text"></textarea>
+  </div>
+
+</div>

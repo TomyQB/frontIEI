@@ -7,19 +7,22 @@ import { LoadModule } from './modules/load/load.module';
 import { LoadComponent } from './modules/load/views/load.component';
 import { SearchModule } from './modules/search/search.module';
 import { SearchComponent } from './modules/search/views/search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    LoadComponent
+    LoadComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoadModule,
     SearchModule,
-    primengModule
+    BrowserAnimationsModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

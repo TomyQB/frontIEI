@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+h1{
+  font-size: clamp(20px, 3vw, 80px);
+}
+
+textarea{
+  width: 45%;
+  height: clamp(100px, 15vw, 200px);
+}
+
+.flex{
+  display: flex;
+  justify-content: center;
+}
+
+.responsiveTxt{
+  font-size: clamp(15px, 1.7vw, 80px);
+}
