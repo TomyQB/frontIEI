@@ -6,28 +6,14 @@
       Seleccione fuente:
     </div>
 
-    <mat-list class="responsiveTxt">
-      <mat-list-item>
-        Seleccionar todas
-      </mat-list-item>
-
-      <mat-list-item>
-        Catalunya
-      </mat-list-item>
-
-      <mat-list-item>
-        Comunitat Valenciana
-      </mat-list-item>
-
-      <mat-list-item>
-        Euskadi
-      </mat-list-item>
+    <mat-list>
+      <mat-list-item *ngFor="let o of opciones">o</mat-list-item>
     </mat-list>
   </div>
 
   <div class="flex" style="gap: 30px;">
-    <button>Cancelar</button>
-    <button>Cargar</button>
+    <button mat-button>Cancelar</button>
+    <button mat-button>Cargar</button>
   </div>
 
   <div class="responsiveTxt">
@@ -37,5 +23,11 @@
   <div>
     <textarea ng-model="string" ng-name="text"></textarea>
   </div>
+
+  <mat-list>
+    <mat-list-item> Pepper </mat-list-item>
+    <mat-list-item> Salt </mat-list-item>
+    <mat-list-item> Paprika </mat-list-item>
+   </mat-list>
 
 </div>

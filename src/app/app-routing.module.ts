@@ -1,12 +1,16 @@
-import { LoadComponent } from './modules/load/views/load.component';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    component: LoadComponent
+    path: 'load',
+    loadChildren: () => import('../app/modules/load/load.module').then(m => m.LoadModule)
   },
+  {
+    path: 'search',
+    loadChildren: () => import('../app/modules/search/search.module').then(m => m.SearchModule)
+  }
 ];
 
 @NgModule({
