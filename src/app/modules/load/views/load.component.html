@@ -6,9 +6,12 @@
       Seleccione fuente:
     </div>
 
-    <mat-list>
-      <mat-list-item *ngFor="let o of opciones">o</mat-list-item>
-    </mat-list>
+    <div class="responsiveTxt" style="text-align: left;">
+      <mat-checkbox>Seleccionar todas</mat-checkbox> <br>
+      Catalunya <br>
+      Comunitat Valenciana <br>
+      Euskadi <br>
+    </div>
   </div>
 
   <div class="flex" style="gap: 30px;">
@@ -24,10 +27,8 @@
     <textarea ng-model="string" ng-name="text"></textarea>
   </div>
 
-  <mat-list>
-    <mat-list-item> Pepper </mat-list-item>
-    <mat-list-item> Salt </mat-list-item>
-    <mat-list-item> Paprika </mat-list-item>
-   </mat-list>
 
 </div>
+
+
+<mat-checkbox>Seleccionar todas</mat-checkbox>
