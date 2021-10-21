@@ -8,13 +8,9 @@ import { SearchModule } from './modules/search/search.module';
 import { SearchComponent } from './modules/search/views/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatListModule } from '@angular/material/list';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatGridListModule } from '@angular/material/grid-list';
-
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
