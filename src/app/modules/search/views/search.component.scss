@@ -1,0 +1,32 @@
+.formField{
+  display:flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.top{
+  display: flex;
+  justify-content: center;
+}
+
+.middle{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.button{
+  margin: 5px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadComponent implements OnInit {
 
+  opciones: string[] = ["Seleccionar todas", "Catalunya", "Comunitat Valenciana", "Euskadi"]
+
   constructor() { }
 
   ngOnInit(): void {

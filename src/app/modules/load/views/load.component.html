@@ -1,36 +1,25 @@
-<div style="text-align: center;">
-  <h1>Carga del almacén de datos</h1>
+<div style="text-align: center; padding-top: 60px;">
+  <h1 class="paddingContent">Carga del almacén de datos</h1>
 
-  <div class="flex">
+  <div class="flex paddingContent" style="gap: 20px;">
     <div class="responsiveTxt">
       Seleccione fuente:
     </div>
 
-    <mat-list class="responsiveTxt">
-      <mat-list-item>
-        Seleccionar todas
-      </mat-list-item>
-
-      <mat-list-item>
-        Catalunya
-      </mat-list-item>
-
-      <mat-list-item>
-        Comunitat Valenciana
-      </mat-list-item>
-
-      <mat-list-item>
-        Euskadi
-      </mat-list-item>
-    </mat-list>
+    <div class="responsiveTextItems" style="text-align: left;">
+      <mat-checkbox class="padding">Seleccionar todas</mat-checkbox> <br>
+      <mat-checkbox class="padding">Catalunya</mat-checkbox> <br>
+      <mat-checkbox class="padding">Comunitat Valenciana</mat-checkbox> <br>
+      <mat-checkbox class="padding">Euskadi</mat-checkbox> <br>
+    </div>
   </div>
 
-  <div class="flex" style="gap: 30px;">
-    <button>Cancelar</button>
-    <button>Cargar</button>
+  <div class="flex paddingContent" style="gap: 30px;">
+    <button mat-raised-button>Cancelar</button>
+    <button mat-raised-button color="primary">Cargar</button>
   </div>
 
-  <div class="responsiveTxt">
+  <div class="responsiveTxt paddingContent" style="text-align: left; padding-left: 20%;">
     Resultados de la carga:
   </div>
 
