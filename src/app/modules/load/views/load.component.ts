@@ -13,5 +13,4 @@ export class LoadComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
