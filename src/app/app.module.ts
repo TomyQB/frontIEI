@@ -7,6 +7,7 @@ import { LoadComponent } from './modules/load/views/load.component';
 import { SearchModule } from './modules/search/search.module';
 import { SearchComponent } from './modules/search/views/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,7 +8,8 @@ import { materialModule } from './../../core/material.module';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+// import { HttpClientModule } from '@angular/common/http'
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatListModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatButtonModule
+    MatButtonModule,
+    // HttpClientModule
   ]
 })
 export class LoadModule { }
