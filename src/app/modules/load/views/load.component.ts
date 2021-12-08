@@ -26,9 +26,8 @@ export class LoadComponent implements OnInit {
   }
 
   cargar() {
-    console.log(this.url)
     this.loadService.cargar(this.url).subscribe(data => {
-      console.log(data)
+      console.log("hola" + data)
     })
   }
 

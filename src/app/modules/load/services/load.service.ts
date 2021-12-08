@@ -6,11 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class LoadService {
 
-  private url = "localhost:8000/load?"
+  private url = "http://localhost:8000/load?"
 
   constructor(private http: HttpClient) { }
 
   cargar(endpoint: string) {
+    console.log(this.url + endpoint)
     return this.http.get(this.url + endpoint);
   }
 }
