@@ -24,7 +24,7 @@
   </div>
 
   <div>
-    <textarea ng-model="string" ng-name="text"></textarea>
+    <textarea ng-model="string" ng-name="text" #datosCargados>{{libs != null ? (libs | async | json) : ""}}</textarea>
   </div>
 
 </div>

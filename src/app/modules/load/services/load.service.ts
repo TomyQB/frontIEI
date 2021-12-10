@@ -11,8 +11,8 @@ export class LoadService {
 
   constructor(private http: HttpClient) { }
 
-  cargar(endpoint: string): Observable<any> {
+  cargar(endpoint: string) {
     console.log(this.url + endpoint)
-    return this.http.get<any>(/* this.url + endpoint */"http://localhost:8000/load?ca=val");
+    return this.http.post(this.url + endpoint, null);
   }
 }

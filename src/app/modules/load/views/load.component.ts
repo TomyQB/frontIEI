@@ -1,6 +1,6 @@
 import { LoadService } from './../services/load.service';
 import { Component, OnInit } from '@angular/core';
-import { concat } from 'rxjs';
+import { concat, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-load',
@@ -15,6 +15,9 @@ export class LoadComponent implements OnInit {
   catalunyaCheck: boolean = false;
   valenciaCheck: boolean = false;
   euskadiCheck: boolean = false;
+  datosCargados: string;
+
+  libs: Observable<any>;
 
   constructor(private loadService: LoadService) { }
 
@@ -26,9 +29,7 @@ export class LoadComponent implements OnInit {
   }
 
   cargar() {
-    this.loadService.cargar(this.url).subscribe(data => {
-      console.log("hola" + data)
-    })
+    this.libs = this.loadService.cargar(this.url)
   }
 
   todas(event: boolean) {
