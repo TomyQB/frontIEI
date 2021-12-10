@@ -1,6 +1,8 @@
 import { LoadService } from './../services/load.service';
 import { Component, OnInit } from '@angular/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { concat, Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-load',
@@ -12,24 +14,55 @@ export class LoadComponent implements OnInit {
   private url: string = "";
 
   todasCheck: boolean = false;
+
   catalunyaCheck: boolean = false;
+  isCatalunyaDisable: boolean = false;
+
   valenciaCheck: boolean = false;
+  isValenciaDisable: boolean = false;
+
   euskadiCheck: boolean = false;
-  datosCargados: string;
+  isEuskadiDisable: boolean = false;
+
+  cargando: boolean = false;
 
   libs: Observable<any>;
 
   constructor(private loadService: LoadService) { }
 
   ngOnInit(): void {
+    this.loadService.delete().subscribe()
   }
 
   cancelar() {
-
+    this.todasCheck = false;
+    this.catalunyaCheck = false;
+    this.valenciaCheck = false;
+    this.euskadiCheck = false;
   }
 
   cargar() {
-    this.libs = this.loadService.cargar(this.url)
+    this.cargando = true
+
+    if(this.catalunyaCheck) {
+      this.catalunyaCheck = false;
+      this.isCatalunyaDisable = true;
+    }
+    if(this.valenciaCheck) {
+      this.valenciaCheck = false;
+      this.isValenciaDisable = true;
+    } 
+    if(this.euskadiCheck) {
+      this.euskadiCheck = false;
+      this.isEuskadiDisable = true;
+    } 
+
+    this.libs = this.loadService.cargar(this.url).pipe(
+      finalize(() => {
+        this.url = "";
+        this.cargando = false
+      })
+    );
   }
 
   todas(event: boolean) {

@@ -7,12 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class LoadService {
 
-  private url = "http://localhost:8000/load?"
+  private url = "http://localhost:8000/"
 
   constructor(private http: HttpClient) { }
 
   cargar(endpoint: string) {
-    console.log(this.url + endpoint)
-    return this.http.post(this.url + endpoint, null);
+    return this.http.post(this.url + "load?" + endpoint, null);
+  }
+
+  delete() {
+    return this.http.delete(this.url);
   }
 }

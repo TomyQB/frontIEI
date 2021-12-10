@@ -8,7 +8,8 @@ import { materialModule } from './../../core/material.module';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';;
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatCheckboxModule,
     MatGridListModule,
     MatButtonModule,
+    MatProgressSpinnerModule
   ]
 })
 export class LoadModule { }
