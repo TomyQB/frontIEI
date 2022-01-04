@@ -16,6 +16,9 @@ import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
 import { SearchService } from '../services/search.service';
 import { Cities, City, Localities, Locality, Province, Provinces, LIBRARY_TYPES, Libraries } from '../models/search.interface';
+import VectorSource from 'ol/source/Vector';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
 
 @Component({
   selector: 'app-search',
@@ -35,6 +38,9 @@ export class SearchComponent implements OnInit {
     name: ""
   }];
   mapPoints: any = [];
+  mark: any;
+  vectorLayer: any;
+  rasterLayer: any;
 
   allLibraries: Libraries = [];
 
@@ -48,16 +54,19 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.getLocations();
     this.getAllLibraries();
+    this.initMarks();
     this.map = new Map({
       target: 'map',
       layers: [
         new TileLayer({
           source: new OSM()
-        })
+        }),
+        // this.rasterLayer,
+        this.vectorLayer
       ],
       view: new View({
-        center: olProj.fromLonLat([7.0785, 51.4614]),
-        zoom: 5
+        center: olProj.fromLonLat([ -3.683, 40.4]),
+        zoom: 6
       })
     });
   }
@@ -124,5 +133,39 @@ export class SearchComponent implements OnInit {
         this.libraries = res;
       }
     )
+  }
+
+  initMarks() {
+    this.mark = new Feature({
+      geometry: new Point(olProj.fromLonLat([-3.683, 40.4]))
+    })
+
+    this.mark.setStyle(new Style({
+      image: new Icon(({
+        color: '#4271AE',
+        crossOrigin: 'anonymous',
+        src: 'src\assets\mark.png',
+        imgSize: [40, 40]
+      }))
+    }))
+    this.drawMarks()
+  }
+
+  drawMarks() {
+    this.mapPoints = new VectorSource({
+      features: [this.mark]
+    })
+
+    this.vectorLayer = new VectorLayer({
+      source: this.mapPoints
+    })
+
+    this.rasterLayer = new TileLayer({
+      source: new OSM({
+        url: 'https://api.tiles.mapbox.com/v3mapbox.geography-class.json?source',
+        crossOrigin: ''
+      })
+    })
+
   }
 }
