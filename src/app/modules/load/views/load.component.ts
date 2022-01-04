@@ -51,11 +51,11 @@ export class LoadComponent implements OnInit {
     if(this.valenciaCheck) {
       this.valenciaCheck = false;
       this.isValenciaDisable = true;
-    } 
+    }
     if(this.euskadiCheck) {
       this.euskadiCheck = false;
       this.isEuskadiDisable = true;
-    } 
+    }
 
     this.libs = this.loadService.cargar(this.url).pipe(
       finalize(() => {
@@ -72,7 +72,7 @@ export class LoadComponent implements OnInit {
       this.valenciaCheck = true;
       this.euskadiCheck = true;
       this.url = "";
-      this.url = "ca=cat&ca=val&ca=eus"
+      this.url = "state=cat&state=val&state=eus"
     } else {
       this.catalunyaCheck = false;
       this.valenciaCheck = false;
@@ -83,36 +83,36 @@ export class LoadComponent implements OnInit {
 
   catalunya(event: boolean) {
     this.catalunyaCheck = event;
-    if(event && this.url.length == 0) this.url = "ca=cat"
-    else if(event && this.url.length != 0) this.url += "&ca=cat"
+    if(event && this.url.length == 0) this.url = "state=cat"
+    else if(event && this.url.length != 0) this.url += "&state=cat"
     else {
       this.todasCheck = false;
-      this.url = this.url.replace("&ca=cat", "")
-      this.url = this.url.replace("ca=cat", "")
+      this.url = this.url.replace("&state=cat", "")
+      this.url = this.url.replace("state=cat", "")
       if(this.url.length == 7 || this.url.length == 14) this.url = this.url.replace("&", "")
     }
   }
 
   valencia(event: boolean) {
     this.valenciaCheck = event;
-    if(event && this.url.length == 0) this.url = "ca=val"
-    else if(event && this.url.length != 0) this.url += "&ca=val"
+    if(event && this.url.length == 0) this.url = "state=val"
+    else if(event && this.url.length != 0) this.url += "&state=val"
     else {
       this.todasCheck = false;
-      this.url = this.url.replace("&ca=val", "")
-      this.url = this.url.replace("ca=val", "")
+      this.url = this.url.replace("&state=val", "")
+      this.url = this.url.replace("state=val", "")
       if(this.url.length == 7 || this.url.length == 14) this.url = this.url.replace("&", "")
     }
   }
 
   euskadi(event: boolean) {
     this.euskadiCheck = event;
-    if(event && this.url.length == 0) this.url = "ca=eus"
-    else if(event && this.url.length != 0) this.url += "&ca=eus"
+    if(event && this.url.length == 0) this.url = "state=eus"
+    else if(event && this.url.length != 0) this.url += "&state=eus"
     else {
       this.todasCheck = false;
-      this.url = this.url.replace("&ca=eus", "")
-      this.url = this.url.replace("ca=eus", "")
+      this.url = this.url.replace("&state=eus", "")
+      this.url = this.url.replace("state=eus", "")
       if(this.url.length == 7 || this.url.length == 14) this.url = this.url.replace("&", "")
     }
   }

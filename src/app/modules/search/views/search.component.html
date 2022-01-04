@@ -5,25 +5,41 @@
   <div class="form">
     <form [formGroup]="searchForm" >
       <mat-form-field class="formField">
-        <label matLabel>Localidad</label>
-        <input matInput formControlName="locality">
+        <mat-label>Localidad</mat-label>
+        <mat-select formControlName="locality" (selectionChange)="getCity($event.value)">
+          <mat-option *ngFor="let i of cities" [value]="i">
+            {{i.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field class="formField">
-        <label matLabel>Código Postal</label>
-        <input matInput formControlName="postalCode">
+        <mat-label>Provincia</mat-label>
+        <mat-select formControlName="province" (selectionChange)="getProvince($event.value)">
+          <mat-option *ngFor="let i of provinces" [value]="i">
+            {{i.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field class="formField">
-        <label matLabel>Provincia</label>
-        <input matInput formControlName="province">
+        <mat-label>Código Postal</mat-label>
+        <mat-select formControlName="postalCode" (selectionChange)="getPostalCode($event.value)">
+          <mat-option *ngFor="let i of localities" [value]="i">
+            {{i.code}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field class="formField">
-        <label matLabel>Tipo</label>
-        <input matInput formControlName="type">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="type" (selectionChange)="getType($event.value)">
+          <mat-option *ngFor="let i of libraryTypes" [value]="i">
+            {{i}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
     <div class="buttons">
       <button mat-button class="button" color="accent">Cancelar</button>
-      <button mat-button class="button" color="accent">Buscar</button>
+      <button mat-button class="button" color="accent" (click)="search()">Buscar</button>
     </div>
   </div>
   <div class="mapContainer">
@@ -36,9 +52,9 @@
   </div>
   <div class="lista">
     <mat-list class="matList">
-      <mat-list-item> Pepper </mat-list-item>
-      <mat-list-item> Salt </mat-list-item>
-      <mat-list-item> Paprika </mat-list-item>
+      <mat-list-item *ngFor="let i of libraries">
+        {{i.name}}
+      </mat-list-item>
     </mat-list>
   </div>
 </div>

@@ -14,6 +14,8 @@ import Icon from 'ol/style/Icon';
 import OSM from 'ol/source/OSM';
 import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
+import { SearchService } from '../services/search.service';
+import { Cities, City, Localities, Locality, Province, Provinces, LIBRARY_TYPES, Libraries } from '../models/search.interface';
 
 @Component({
   selector: 'app-search',
@@ -23,11 +25,29 @@ import TileLayer from 'ol/layer/Tile';
 export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   map: Map;
-  constructor(private fb: FormBuilder) {
+  cities: Cities = [];
+  provinces: Provinces = [];
+  localities: Localities = [];
+  postalCode: number;
+  libraryTypes = LIBRARY_TYPES;
+  type: string;
+  libraries: any = [{
+    name: ""
+  }];
+  mapPoints: any = [];
+
+  allLibraries: Libraries = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private searchService: SearchService
+    ) {
     this.initSearchForm()
   }
 
   ngOnInit(): void {
+    this.getLocations();
+    this.getAllLibraries();
     this.map = new Map({
       target: 'map',
       layers: [
@@ -49,5 +69,60 @@ export class SearchComponent implements OnInit {
       province: '',
       type: ''
     })
+  }
+
+  getAllLibraries(){
+    this.searchService.getAllLibraries().subscribe(
+      (res:Libraries) => {
+        this.allLibraries = res;
+        this.mapPoints = this.allLibraries.map(
+          (item) => {
+            return {
+              longitude: item.longitude,
+              latitude: item.latitude
+            }
+          }
+        );
+        console.log(this.mapPoints);
+        console.log(this.allLibraries);
+      }
+    )
+  }
+
+  getLocations(){
+    this.searchService.getLocations().subscribe(
+      (res: Cities) => {
+        this.cities = res;
+      }
+    )
+  }
+
+  getCity(event: City){
+    this.provinces = event.provinces;
+  }
+
+  getProvince(event: Province){
+    this.localities = event.localities;
+  }
+
+  getPostalCode(event: Locality){
+    this.postalCode = event.id;
+  }
+
+  getType(event: string){
+    this.type = event;
+  }
+
+  search(){
+    this.searchService.getLibraries(
+      this.searchForm.controls.locality.value.id,
+      this.postalCode.toString(),
+      this.searchForm.controls.province.value.id,
+      this.searchForm.controls.type.value
+    ).subscribe(
+      (res:any) => {
+        this.libraries = res;
+      }
+    )
   }
 }
