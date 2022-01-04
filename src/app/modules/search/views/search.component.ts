@@ -135,30 +135,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.type = event;
   }
   search(){
-    if(this.postalCode){
       this.searchService.getLibraries(
         this.searchForm.controls.locality.value.id,
-        this.postalCode.toString(),
+        this.postalCode ? this.postalCode.toString() : '',
         this.searchForm.controls.province.value.id,
         this.searchForm.controls.type.value
       ).subscribe(
         (res:any) => {
           this.libraries = res;
         }
-      )
-    }else{
-      this.searchService.getLibraries(
-        this.searchForm.controls.locality.value.id,
-        '',
-        this.searchForm.controls.province.value.id,
-        this.searchForm.controls.type.value
-      ).subscribe(
-        (res:any) => {
-          this.libraries = res;
-        }
-      )
-    }
-
+      );
   }
 
   cleanField(field: string){
@@ -166,5 +152,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
     if(field === 'postalCode'){
       this.postalCode = null;
     }
+  }
+
+  clean(){
+    this.searchForm.controls.locality.setValue('');
+    this.postalCode = null;
+    this.searchForm.controls.postalCode.setValue('');
+    this.searchForm.controls.province.setValue('');
+    this.searchForm.controls.type.setValue('');
+    this.libraries = [];
   }
 }
