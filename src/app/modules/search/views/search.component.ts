@@ -135,19 +135,36 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.type = event;
   }
   search(){
-    this.searchService.getLibraries(
-      this.searchForm.controls.locality.value.id,
-      this.postalCode.toString(),
-      this.searchForm.controls.province.value.id,
-      this.searchForm.controls.type.value
-    ).subscribe(
-      (res:any) => {
-        this.libraries = res;
-      }
-    )
+    if(this.postalCode){
+      this.searchService.getLibraries(
+        this.searchForm.controls.locality.value.id,
+        this.postalCode.toString(),
+        this.searchForm.controls.province.value.id,
+        this.searchForm.controls.type.value
+      ).subscribe(
+        (res:any) => {
+          this.libraries = res;
+        }
+      )
+    }else{
+      this.searchService.getLibraries(
+        this.searchForm.controls.locality.value.id,
+        '',
+        this.searchForm.controls.province.value.id,
+        this.searchForm.controls.type.value
+      ).subscribe(
+        (res:any) => {
+          this.libraries = res;
+        }
+      )
+    }
+
   }
 
   cleanField(field: string){
     this.searchForm.get(field).setValue('');
+    if(field === 'postalCode'){
+      this.postalCode = null;
+    }
   }
 }
