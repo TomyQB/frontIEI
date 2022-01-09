@@ -1,5 +1,5 @@
 import { LoadService } from './../services/load.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { concat, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -11,34 +11,52 @@ import { finalize } from 'rxjs/operators';
 })
 export class LoadComponent implements OnInit {
 
-  private url: string = "";
+  private params: string = "";
 
-  todasCheck: boolean = false;
+  todasCheck = false;
 
-  catalunyaCheck: boolean = false;
-  isCatalunyaDisable: boolean = false;
+  catalunyaCheck = false;
+  isCatalunyaDisable = false;
 
-  valenciaCheck: boolean = false;
-  isValenciaDisable: boolean = false;
+  valenciaCheck = false;
+  isValenciaDisable = false;
 
-  euskadiCheck: boolean = false;
-  isEuskadiDisable: boolean = false;
+  euskadiCheck = false;
+  isEuskadiDisable = false;
 
-  cargando: boolean = false;
+  cargando = false;
 
   libs: Observable<any>;
 
+  get isAnySelected() {
+    return (this.valenciaCheck && !this.isValenciaDisable) || (this.catalunyaCheck && !this.isCatalunyaDisable) || (this.euskadiCheck && !this.isEuskadiDisable)
+  }
   constructor(private loadService: LoadService) { }
 
   ngOnInit(): void {
-    this.loadService.delete().subscribe()
+    this.loadService.delete().subscribe();
+    this.loadService.loadedStates$.subscribe(({valencia, catalunya, euskadi}) => {
+      this.euskadiCheck = euskadi;
+      this.valenciaCheck = valencia;
+      this.catalunyaCheck = catalunya;
+      this.isEuskadiDisable = euskadi;
+      this.isValenciaDisable = valencia;
+      this.isCatalunyaDisable = catalunya;
+      this.todasCheck = this.loadService.allSelected;
+    })
   }
 
   cancelar() {
     this.todasCheck = false;
-    this.catalunyaCheck = false;
-    this.valenciaCheck = false;
-    this.euskadiCheck = false;
+    if(!this.isEuskadiDisable){
+      this.euskadiCheck = false;
+    }
+    if(!this.isValenciaDisable){
+      this.valenciaCheck = false;
+    }
+    if(!this.isCatalunyaDisable){  
+      this.catalunyaCheck = false;
+    }
   }
 
   cargar() {
@@ -57,9 +75,15 @@ export class LoadComponent implements OnInit {
       this.isEuskadiDisable = true;
     }
 
-    this.libs = this.loadService.cargar(this.url).pipe(
+    this.loadService.setFullLoaded({
+      catalunya: this.isCatalunyaDisable,
+      valencia: this.isValenciaDisable,
+      euskadi: this.isEuskadiDisable
+    })
+
+    this.libs = this.loadService.cargar(this.params).pipe(
       finalize(() => {
-        this.url = "";
+        this.params = "";
         this.cargando = false
       })
     );
@@ -71,49 +95,49 @@ export class LoadComponent implements OnInit {
       this.catalunyaCheck = true;
       this.valenciaCheck = true;
       this.euskadiCheck = true;
-      this.url = "";
-      this.url = "state=cat&state=val&state=eus"
+      this.params = "";
+      this.params = "state=cat&state=val&state=eus"
     } else {
       this.catalunyaCheck = false;
       this.valenciaCheck = false;
       this.euskadiCheck = false;
-      this.url = "";
+      this.params = "";
     }
   }
 
   catalunya(event: boolean) {
     this.catalunyaCheck = event;
-    if(event && this.url.length == 0) this.url = "state=cat"
-    else if(event && this.url.length != 0) this.url += "&state=cat"
+    if(event && this.params.length == 0) this.params = "state=cat"
+    else if(event && this.params.length != 0) this.params += "&state=cat"
     else {
       this.todasCheck = false;
-      this.url = this.url.replace("&state=cat", "")
-      this.url = this.url.replace("state=cat", "")
-      if(this.url.length == 7 || this.url.length == 14) this.url = this.url.replace("&", "")
+      this.params = this.params.replace("&state=cat", "")
+      this.params = this.params.replace("state=cat", "")
+      if(this.params.length == 7 || this.params.length == 14) this.params = this.params.replace("&", "")
     }
   }
 
   valencia(event: boolean) {
     this.valenciaCheck = event;
-    if(event && this.url.length == 0) this.url = "state=val"
-    else if(event && this.url.length != 0) this.url += "&state=val"
+    if(event && this.params.length == 0) this.params = "state=val"
+    else if(event && this.params.length != 0) this.params += "&state=val"
     else {
       this.todasCheck = false;
-      this.url = this.url.replace("&state=val", "")
-      this.url = this.url.replace("state=val", "")
-      if(this.url.length == 7 || this.url.length == 14) this.url = this.url.replace("&", "")
+      this.params = this.params.replace("&state=val", "")
+      this.params = this.params.replace("state=val", "")
+      if(this.params.length == 7 || this.params.length == 14) this.params = this.params.replace("&", "")
     }
   }
 
   euskadi(event: boolean) {
     this.euskadiCheck = event;
-    if(event && this.url.length == 0) this.url = "state=eus"
-    else if(event && this.url.length != 0) this.url += "&state=eus"
+    if(event && this.params.length == 0) this.params = "state=eus"
+    else if(event && this.params.length != 0) this.params += "&state=eus"
     else {
       this.todasCheck = false;
-      this.url = this.url.replace("&state=eus", "")
-      this.url = this.url.replace("state=eus", "")
-      if(this.url.length == 7 || this.url.length == 14) this.url = this.url.replace("&", "")
+      this.params = this.params.replace("&state=eus", "")
+      this.params = this.params.replace("state=eus", "")
+      if(this.params.length == 7 || this.params.length == 14) this.params = this.params.replace("&", "")
     }
   }
 

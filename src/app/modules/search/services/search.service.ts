@@ -15,7 +15,7 @@ export class SearchService {
   ) { }
 
   getLocations(): Observable<Cities>{
-    return this.http.get<Cities>(`${this.apiBaseUrl}/locations`);
+    return this.http.get<Cities>(`${this.apiBaseUrl}locations`);
   }
 
   getLibraries(
@@ -24,7 +24,6 @@ export class SearchService {
     province: string,
     type: string
   ): Observable<Libraries>{
-    console.log(`${this.apiBaseUrl}/libraries?locality_id=${postalCode}&province_id=${province}&state_id=${city}&type=${type}`);
     let cityString;
     let localityString;
     let provinceString;
@@ -33,11 +32,10 @@ export class SearchService {
     postalCode !== '' && postalCode !== undefined ? localityString = `&locality_id=${postalCode}` : localityString = '';
     province !== '' && province !== undefined ? provinceString = `&province_id=${province}` : provinceString = '';
     type !== '' && type !== undefined ?  typeString = `&type=${type}` : typeString = '';
-    console.log( `${this.apiBaseUrl}/libraries?` + cityString + localityString + provinceString + typeString);
-    return this.http.get<Libraries>(`${this.apiBaseUrl}/libraries?` + cityString + localityString + provinceString + typeString);
+    return this.http.get<Libraries>(`${this.apiBaseUrl}libraries?` + cityString + localityString + provinceString + typeString);
   }
 
   getAllLibraries(): Observable<Libraries>{
-    return this.http.get<Libraries>(`${this.apiBaseUrl}/libraries?`);
+    return this.http.get<Libraries>(`${this.apiBaseUrl}libraries?`);
   }
 }

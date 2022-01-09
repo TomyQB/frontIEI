@@ -1,22 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
+  FormBuilder, FormGroup
 } from '@angular/forms';
-import Map from 'ol/Map.js';
-import View from 'ol/View.js';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import Style from 'ol/style/Style';
-import Icon from 'ol/style/Icon';
-import OSM from 'ol/source/OSM';
-import * as olProj from 'ol/proj';
-import TileLayer from 'ol/layer/Tile';
-import { SearchService } from '../services/search.service';
-import { Cities, City, Localities, Locality, Province, Provinces, LIBRARY_TYPES, Libraries } from '../models/search.interface';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
+import { Cities, City, Libraries, LIBRARY_TYPES, Localities, Locality, Province, Provinces } from '../models/search.interface';
+import { SearchService } from '../services/search.service';
+
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -48,7 +39,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router
     ) {
     this.initSearchForm()
   }
@@ -76,7 +68,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   addLibraryMarkers(){
-    this.allLibraries.map(
+
+    this.libraries.map(
       (item) => {
         L.marker([item.latitude, item.longitude], {icon: this.greenIcon}).addTo(this.map)
         .bindPopup(item.name)
@@ -98,6 +91,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.searchService.getAllLibraries().subscribe(
       (res:Libraries) => {
         this.allLibraries = res;
+        this.libraries = this.allLibraries;
         this.mapPoints = this.allLibraries.map(
           (item) => {
             return {
@@ -107,6 +101,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
           }
         );
         this.addLibraryMarkers();
+        if(!this.allLibraries?.length) {
+          this.router.navigate(['/load'])
+        }
       }
     )
   }
@@ -119,19 +116,19 @@ export class SearchComponent implements OnInit, AfterViewInit {
     )
   }
 
-  getCity(event: City){
+  setProvinces(event: City){
     this.provinces = event.provinces;
   }
 
-  getProvince(event: Province){
+  setLocalities(event: Province){
     this.localities = event.localities;
   }
 
-  getPostalCode(event: Locality){
+  setPostalCodes(event: Locality){
     this.postalCode = event.id;
   }
 
-  getType(event: string){
+  setType(event: string){
     this.type = event;
   }
   search(){
@@ -141,8 +138,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
         this.searchForm.controls.province.value.id,
         this.searchForm.controls.type.value
       ).subscribe(
-        (res:any) => {
+        res => {
           this.libraries = res;
+          this.addLibraryMarkers();
         }
       );
   }

@@ -6,8 +6,8 @@
     <form [formGroup]="searchForm" >
       <div class="fieldContainer">
         <mat-form-field class="formField">
-          <mat-label>Localidad</mat-label>
-          <mat-select formControlName="locality" (selectionChange)="getCity($event.value)">
+          <mat-label>Comunidad Autónoma</mat-label>
+          <mat-select formControlName="locality" (selectionChange)="setProvinces($event.value)">
             <mat-option *ngFor="let i of cities" [value]="i">
               {{i.name}}
             </mat-option>
@@ -18,7 +18,7 @@
       <div class="fieldContainer">
         <mat-form-field class="formField">
           <mat-label>Provincia</mat-label>
-          <mat-select formControlName="province" (selectionChange)="getProvince($event.value)">
+          <mat-select formControlName="province" (selectionChange)="setLocalities($event.value)">
             <mat-option *ngFor="let i of provinces" [value]="i">
               {{i.name}}
             </mat-option>
@@ -28,10 +28,10 @@
       </div>
       <div class="fieldContainer">
         <mat-form-field class="formField">
-          <mat-label>Código Postal</mat-label>
-          <mat-select formControlName="postalCode" (selectionChange)="getPostalCode($event.value)">
+          <mat-label>Localidad | Código Postal</mat-label>
+          <mat-select formControlName="postalCode" (selectionChange)="setPostalCodes($event.value)">
             <mat-option *ngFor="let i of localities" [value]="i">
-              {{i.code}}
+              {{i.name}} - {{i.code}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -40,7 +40,7 @@
       <div class="fieldContainer">
         <mat-form-field class="formField">
           <mat-label>Tipo</mat-label>
-          <mat-select formControlName="type" (selectionChange)="getType($event.value)">
+          <mat-select formControlName="type" (selectionChange)="setType($event.value)">
             <mat-option *ngFor="let i of libraryTypes" [value]="i">
               {{i}}
             </mat-option>

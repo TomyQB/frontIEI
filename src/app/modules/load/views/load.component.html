@@ -22,8 +22,8 @@
   </div>
 
   <div class="flex paddingContent" style="gap: 30px;">
-    <button mat-raised-button (click)="cancelar()">Cancelar</button>
-    <button mat-raised-button color="primary" (click)="cargar()">Cargar</button>
+    <button [disabled]="!isAnySelected" mat-raised-button (click)="cancelar()">Cancelar</button>
+    <button [disabled]="!isAnySelected" mat-raised-button color="primary" (click)="cargar()">Cargar</button>
   </div>
 
   <div class="responsiveTxt paddingContent" style="text-align: left; padding-left: 20%;">
