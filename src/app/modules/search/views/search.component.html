@@ -66,11 +66,11 @@
   <div class="lista">
     <mat-list class="matList">
       <mat-list-item *ngFor="let i of libraries">
-        {{i.name}}
-        {{i.email}}
-        {{i.phone_number}}
-        {{i.address}}
-        <mat-divider></mat-divider>
+        <div> 
+          <div>{{i.name}}</div>
+          <div>{{i.email}}</div>
+          <div>{{i.address}}</div>
+        </div>
       </mat-list-item>
     </mat-list>
   </div>

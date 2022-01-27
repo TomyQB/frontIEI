@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  apiBaseurl: 'http://3.82.228.192/'
 };
 
 /*

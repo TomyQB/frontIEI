@@ -46,6 +46,7 @@
 .lista{
   display: flex;
   justify-content: center;
+  padding-bottom: 40px;
 }
 
 #map{
@@ -77,4 +78,15 @@
   flex-direction: row;
 }
 
+.flex {
+  display: flex;
+  flex-direction: column;
+}
 
+.mat-list-base .mat-list-item {
+  height: 80px;
+}
+
+.margin {
+  padding-bottom: 10px;
+}
